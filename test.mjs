@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {wordCount,percentChange,barHeights,intervalInfo,rubricScore,comparisonMetrics,escapeCheck} from './engine.js';
+assert.equal(wordCount('  שתי מילים\nכאן '),3);
+assert.equal(percentChange(60,72),20);assert.ok(Math.abs(percentChange(68,72)-5.88235294)<1e-7);assert.ok(Math.abs(percentChange(76,84)-10.52631579)<1e-7);
+assert.equal(percentChange(.4,.2),-50);assert.equal(percentChange(100,300),200);assert.throws(()=>percentChange(0,3));
+assert.equal(barHeights(65).ratio,7/3);assert.equal(barHeights(0).ratio,72/68);assert.throws(()=>barHeights(68));
+assert.equal(intervalInfo().includesZero,true);assert.equal(intervalInfo(-1.8,-.2,-1).includesZero,false);assert.throws(()=>intervalInfo(2,1,1.5));
+assert.equal(rubricScore([3,3,3,3,3,3]),100);assert.equal(rubricScore([3,0,0,0,0,0]),20);
+assert.equal(comparisonMetrics(4,3,4,1,8).supportRate,75);assert.equal(comparisonMetrics(0,0,0,0,0).supportRate,null);assert.throws(()=>comparisonMetrics(2,3,4,0,2));
+assert.equal(escapeCheck(0,3,'א2'),true);assert.equal(escapeCheck(2,4,'א4'),false);assert.equal(escapeCheck(3,0,'א4'),true);
+console.log('PASS: word counts, percentage bases, graph scale, CI zero, rubric, comparison constraints and evidence locks');
